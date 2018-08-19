@@ -1,4 +1,4 @@
-## Create react app - light version
+## create-react-app-light
 
 The purpose is to have as tiny and basic react-redux boilerplate as possible.
 
