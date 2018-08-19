@@ -1,0 +1,15 @@
+{
+	"presets": [["env", {
+		"targets": {
+			"browsers": ["last 2 versions", "Firefox >= 47"]
+		}
+	}], "react"],
+	"plugins": [
+		"transform-object-rest-spread",
+		"transform-class-properties",
+		"transform-runtime",
+		"transform-decorators-legacy",
+		"react-hot-loader/babel"
+	],
+	"sourceMap": "inline"
+}
