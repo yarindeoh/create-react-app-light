@@ -7,6 +7,10 @@ Currently includes:
 - redux-saga
 - sass
 - i18n (translation infra)
+- jest
+- babel
+- eslint
+- webpack
 - hot reload
 - webpack-dev-server
 
