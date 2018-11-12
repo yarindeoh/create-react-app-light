@@ -2,8 +2,7 @@
 
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const { HotModuleReplacementPlugin, DefinePlugin } = require('webpack');
+const { DefinePlugin } = require('webpack');
 const DEV = process.argv[1].indexOf('webpack-dev-server') >= 0;
 
 module.exports = () => {
@@ -13,7 +12,7 @@ module.exports = () => {
     let webpackConfig = {
         performance: { hints: false },
         mode: DEV ? 'development' : 'production',
-        entry: [__dirname + '/src/index.js'],
+        entry: __dirname + '/src/index.js',
         devtool: DEV ? 'eval-source-map' : 'none',
         resolve: {
             modules: modulePath,
@@ -23,7 +22,7 @@ module.exports = () => {
         },
         output: {
             path: __dirname + '/dist',
-            publicPath: '/dist/',
+            publicPath: '/',
             filename: 'bundle.js'
         },
         module: {
@@ -67,38 +66,13 @@ module.exports = () => {
                 filename: 'index.html',
                 template: __dirname + '/index.html'
             })
-        ]
+        ],
+        devServer: {
+            contentBase: path.join(__dirname, 'dist'),
+            compress: true,
+            port: 9000
+        }
     };
 
-    if (DEV) {
-        webpackConfig.devServer = {
-            port: 9000,
-            historyApiFallback: true,
-            publicPath: 'http://localhost:9000/dist',
-            contentBase: [
-                path.join(__dirname, 'dist'),
-                path.join(__dirname, 'libs')
-            ],
-            inline: true,
-            hot: true,
-            stats: {
-                colors: true,
-                exclude: ['node_modules']
-            }
-        };
-        webpackConfig.plugins.push(new HotModuleReplacementPlugin());
-    } else {
-        webpackConfig.plugins.push(new UglifyJsPlugin());
-        webpackConfig.module.rules.push({
-            enforce: 'pre',
-            test: /\.(js|jsx)$/,
-            include: srcPath,
-            use: [
-                {
-                    loader: 'eslint-loader'
-                }
-            ]
-        });
-    }
     return webpackConfig;
 };
