@@ -1,5 +1,7 @@
 {
   "en": {
-   "workflow.mainComponent.helloWorld": "Hello World"
+   "app": {
+     "test": "Hello World"
+   }
   }
 }

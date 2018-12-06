@@ -12,5 +12,4 @@ for (language in languagesData) {
     }
     languagesObj[language] = langData;
 }
-console.log(JSON.stringify(languagesObj));
 export default merge({}, languagesObj);

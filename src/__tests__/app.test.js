@@ -1,4 +1,4 @@
-describe('Workflow View Tests', function() {
+describe('test', function() {
     it('dont test nothing', () => {
         expect(true).toEqual(true);
     });

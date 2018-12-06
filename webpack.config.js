@@ -2,18 +2,16 @@
 
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { DefinePlugin } = require('webpack');
-const DEV = process.argv[1].indexOf('webpack-dev-server') >= 0;
 
-module.exports = () => {
+module.exports = (env, argv) => {
     let srcPath = [path.resolve(__dirname, 'src')];
     let modulePath = [path.resolve('.'), path.join(__dirname, 'node_modules')];
 
     let webpackConfig = {
         performance: { hints: false },
-        mode: DEV ? 'development' : 'production',
-        entry: __dirname + '/src/index.js',
-        devtool: DEV ? 'eval-source-map' : 'none',
+        mode: argv.mode,
+        entry: path.resolve(__dirname, 'src/index.js'),
+        devtool: argv.mode === 'development' ? 'eval-source-map' : 'none',
         resolve: {
             modules: modulePath,
             alias: {
@@ -21,7 +19,7 @@ module.exports = () => {
             }
         },
         output: {
-            path: __dirname + '/dist',
+            path: path.resolve(__dirname, '/dist'),
             publicPath: '/',
             filename: 'bundle.js'
         },
@@ -59,12 +57,9 @@ module.exports = () => {
             ]
         },
         plugins: [
-            new DefinePlugin({
-                DEBUG: DEV === true
-            }),
             new HtmlWebpackPlugin({
                 filename: 'index.html',
-                template: __dirname + '/index.html'
+                template: path.resolve(__dirname, 'index.html')
             })
         ],
         devServer: {
