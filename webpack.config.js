@@ -2,6 +2,7 @@
 
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = (env, argv) => {
     let srcPath = [path.resolve(__dirname, 'src')];
@@ -19,7 +20,7 @@ module.exports = (env, argv) => {
             }
         },
         output: {
-            path: path.resolve(__dirname, '/dist'),
+            path: path.resolve(__dirname, 'dist'),
             publicPath: '/',
             filename: 'bundle.js'
         },
@@ -62,6 +63,9 @@ module.exports = (env, argv) => {
                 template: path.resolve(__dirname, 'index.html')
             })
         ],
+        optimization: {
+            minimizer: [new UglifyJsPlugin()]
+        },
         devServer: {
             contentBase: path.join(__dirname, 'dist'),
             compress: true,

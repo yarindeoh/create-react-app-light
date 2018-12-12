@@ -1,0 +1,49 @@
+$pathNumber: 18;
+
+// The color that will be at the beginning and the end of the loop.
+$firstColor: #0057B8;
+
+// The list of all the used colors. You can add or remove colors, the animation stays fluid. The $first-color must remain at the end of the list though.
+$listColors: #F11E4A, #F8A527, #266D7F, #82A, $firstColor;
+
+$delayCoeff: 0.1s;
+
+.svg {
+  display: inline-block;
+  height: 200px;
+  width: 200px;
+  line-height: 200px;
+  text-align: center;
+  background-color: #FFF;
+  border-radius: 50%;
+}
+
+#svg {
+  display: inline-block;
+  vertical-align: middle;
+  fill: $firstColor;
+
+  @for $i from 1 through 18 {
+
+    path:nth-child(#{$i}) {
+      animation: pweek $delayCoeff*$pathNumber linear infinite;
+      animation-delay: $i*$delayCoeff;
+
+      &:hover {
+        animation-play-state: paused;
+
+      }
+    }
+  }
+}
+
+@keyframes pweek {
+  0% {
+    fill: $firstColor;
+  }
+  @for $i from 1 through length($listColors) {
+    #{$i*(100/length($listColors))}% {
+      fill: nth($listColors, $i);
+    }
+  }
+}

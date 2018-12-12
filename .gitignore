@@ -8,6 +8,7 @@
 
 # production
 /dist
+dist
 
 # misc
 npm-debug.log*

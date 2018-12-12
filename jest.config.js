@@ -11,6 +11,6 @@ module.exports = {
     transform: {
         '^.+\\.js$': 'babel-jest',
         '\\.(jpg|jpeg|png|gif|eot|otf|svg|ttf|woff|woff2)$':
-            '<rootDir>src/fileTransformer.js'
+            '<rootDir>src/common/utils/fileTransformer.js'
     }
 };

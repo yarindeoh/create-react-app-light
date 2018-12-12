@@ -1,7 +1,12 @@
 {
   "en": {
    "app": {
-     "test": "Hello World"
+     "title": "Create React App Light"
    }
+  },
+  "nl": {
+    "app": {
+      "title": "creëer react app licht"
+    }
   }
 }

@@ -1,9 +1,11 @@
 import { put } from 'redux-saga/effects';
 import languagesData from './languages.json';
-import { LANG } from 'src/services/appConstants';
+import { LANG } from 'src/appConstants';
 
 export function* initTranslationSaga() {
-    // yield put({ type: 'loadTranslation', translations: translationsObject });
-    yield put({ type: 'loadTranslation', translations: languagesData });
-    yield put({ type: 'setLocal', locale: LANG });
+    yield put({
+        type: '@@i18n/LOAD_TRANSLATIONS',
+        translations: languagesData
+    });
+    yield put({ type: '@@i18n/SET_LOCALE', locale: LANG });
 }

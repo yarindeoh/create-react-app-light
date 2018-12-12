@@ -2,20 +2,20 @@
   "name": "create-react-app-light",
   "scripts": {
     "start": "webpack-dev-server --mode=development",
-    "build": "webpack --mode productionL",
+    "build": "webpack --mode production",
     "test": "jest",
     "test-dev": "jest --watch",
     "lint-fix": "eslint --fix  --ext .js src"
   },
   "dependencies": {
-    "lodash": "^4.17.10",
     "prettier": "^1.15.3",
     "react": "^16.2.0",
     "react-dom": "^16.3.2",
     "react-redux": "^5.0.6",
     "react-redux-i18n": "^1.9.2",
     "redux": "^3.7.2",
-    "redux-saga": "^0.16.0"
+    "redux-saga": "^0.16.0",
+    "uglifyjs-webpack-plugin": "^2.0.1"
   },
   "devDependencies": {
     "babel-core": "^6.24.0",
