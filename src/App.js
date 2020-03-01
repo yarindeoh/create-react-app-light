@@ -1,18 +1,13 @@
-import { connect } from 'react-redux';
-import AppView from './AppView';
-import { setLocale } from 'react-redux-i18n';
+import React from 'react';
+import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
 
-function mapStateToProps() {
-    return {};
-}
+import HomePageView from 'containers/HomePageView';
+import 'resources/scss/style.scss';
 
-function mapDispatchToProps(dispatch) {
-    return {
-        changeLangLocale: () => dispatch(setLocale('en'))
-    };
-}
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(AppView);
+export const App = withRouter(() => {
+    return (
+        <Switch>
+            <Route path="/" exact={true} component={HomePageView} />
+        </Switch>
+    );
+});
