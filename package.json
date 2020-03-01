@@ -1,27 +1,21 @@
 {
-  "name": "new-react-app",
+  "name": "create-react-app-light",
   "version": "1.0.0",
-  "description": "new-react-app",
+  "description": "create-react-app-light",
   "author": "yarindeoh",
   "license": "MIT",
   "scripts": {
     "start": "webpack-dev-server --mode=development",
-    "start-server": "nodemon server/server.js",
-    "start-dev": "concurrently \"npm run start\" \"npm run start-server\"",
     "build": "webpack --mode production",
     "test": "jest",
     "test-watch": "jest --watch",
     "lint-fix": "eslint --fix  --ext .js src"
   },
   "dependencies": {
-    "@svgr/webpack": "^4.3.2",
     "classnames": "^2.2.6",
-    "concurrently": "^4.1.1",
     "connected-react-router": "^6.5.2",
     "i18n": "^0.8.3",
-    "isomorphic-fetch": "^2.2.1",
     "node-sass": "^4.11.0",
-    "nodemon": "^1.19.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-redux": "^7.1.0",
@@ -37,6 +31,7 @@
     "@babel/core": "^7.8.6",
     "@babel/plugin-transform-runtime": "^7.8.3",
     "@babel/preset-env": "^7.8.6",
+    "@babel/preset-react": "^7.8.3",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.0.6",
     "css-loader": "^2.1.1",
@@ -53,9 +48,5 @@
     "webpack": "^4.39.1",
     "webpack-cli": "^3.3.6",
     "webpack-dev-server": "^3.8.0"
-  },
-  "prettier": {
-    "singleQuote": true,
-    "tabWidth": 4
   }
 }
