@@ -1,5 +1,5 @@
 import { put } from 'redux-saga/effects';
-import languagesData from './languages.json';
+import languagesData from 'services/i18n/languages.json';
 import { LANG } from 'src/appConstants';
 
 export function* initTranslationSaga() {

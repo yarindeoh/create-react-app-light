@@ -2,58 +2,52 @@
 
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const apiMocker = require('webpack-api-mocker');
 
 module.exports = (env, argv) => {
-    let srcPath = [path.resolve(__dirname, 'src')];
-    let modulePath = [path.resolve('.'), path.join(__dirname, 'node_modules')];
-
-    let webpackConfig = {
+    return {
         performance: { hints: false },
         mode: argv.mode,
         entry: path.resolve(__dirname, 'src/index.js'),
         devtool: argv.mode === 'development' ? 'eval-source-map' : 'none',
         resolve: {
-            modules: modulePath,
+            extensions: ['jsx', '.js'],
             alias: {
-                i18n: path.resolve(__dirname, 'src/i18n')
+                resources: path.resolve(__dirname, 'resources'),
+                src: path.resolve(__dirname, 'src'),
+                components: path.resolve(__dirname, 'src/components'),    
+                containers: path.resolve(__dirname, 'src/containers'),                            
+                services: path.resolve(__dirname, 'src/services'),
+                i18n: path.resolve(__dirname, 'src/services/i18n')
             }
         },
         output: {
-            path: path.resolve(__dirname, 'dist'),
-            publicPath: '/',
-            filename: 'bundle.js'
+            filename: 'bundle.js',
+            path: path.resolve('dist'),
+            publicPath: '/'
         },
         module: {
             rules: [
-                {
-                    test: /\.(js|jsx)$/,
-                    include: srcPath,
-                    use: [{ loader: 'babel-loader' }]
-                },
-                {
-                    test: /\.(js|jsx)$/,
-                    loader: 'source-map-loader',
-                    include: srcPath,
-                    enforce: 'pre'
+                { 
+                    test: /\.js$/, 
+                    exclude: /node_modules/, 
+                    loader: "babel-loader" 
                 },
                 {
                     test: /\.(css|scss)$/,
+                    loaders: ['style-loader', 'css-loader', 'sass-loader'],
+                    include: path.resolve(__dirname, '../')
+                },
+                {
+                    test: /\.(jpg|png|gif|ico|ttf|woff|woff2|eot)(\?.*)?$/,
                     use: [
                         {
-                            loader: 'style-loader'
-                        },
-                        {
-                            loader: 'css-loader'
-                        },
-                        {
-                            loader: 'sass-loader',
+                            loader: 'file-loader',
                             options: {
                                 output: { path: path.join(__dirname, 'dist') }
                             }
                         }
-                    ],
-                    include: [/resources/, path.join(__dirname, 'node_modules')]
+                    ]
                 }
             ]
         },
@@ -63,15 +57,16 @@ module.exports = (env, argv) => {
                 template: path.resolve(__dirname, 'index.html')
             })
         ],
-        optimization: {
-            minimizer: [new UglifyJsPlugin()]
-        },
         devServer: {
-            contentBase: path.join(__dirname, 'dist'),
-            compress: true,
-            port: 9000
+            before(app) {
+                apiMocker(app, path.resolve('./mockers/index.js'), {});
+            },
+            port: 9000,
+            hot: true,
+            historyApiFallback: true,
+            proxy: {
+                '/proxy/*': 'http://localhost:8080'
+            }
         }
     };
-
-    return webpackConfig;
 };
